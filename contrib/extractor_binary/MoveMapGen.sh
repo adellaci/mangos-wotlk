@@ -11,7 +11,7 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 ## Syntax of this helper
-## First param must be number of to be used CPUs (only 1, 2, 3, 4 supported) or "offmesh" to recreate the special tiles from the OFFMESH_FILE
+## First param must be number of to be used CPUs (only 1, 2, 4, 8 supported) or "offmesh" to recreate the special tiles from the OFFMESH_FILE
 ## Second param can be an additional filename for storing log
 ## Third param can be an addition filename for storing detailed log
 
@@ -33,13 +33,14 @@ DETAIL_LOG_FILE="MoveMapGen_detailed.log"
 ## ! Use below only for finetuning or if you know what you are doing !
 
 ## All maps
-MAP_LIST_A="1 37 543 595 289 572 529 562 531 269 47 649 650 599 548 559 429 230 573 349 13 25 409 229 43 48 546 553 547 604 545 90 576"
-MAP_LIST_B="571 628 560 509 723 532 607 600 668 33 585 566 389 601 369 129 550 189 542 70 109 554 632 552 555 540 598 450 558 249 35 624 557"
-MAP_LIST_C="0 631 609 534 533 619 469 602 329 580 615 578 36 556 44 565 544 34 617 608 618 449 616 42 451 582 584 586 587 588 589 590 591 592"
-MAP_LIST_D="530 169 575 603 309 574 30 564 568 209 724 658 489  593 594 596 597 605 606 610 612 613 614 620 621 622 623 641 642 647 672 673 712 713 718"
-MAP_LIST_D1="209 724 658 489 606 610 612 613 614 620 621"
-MAP_LIST_D2="169 575 603 309 574 30 564 568 622 623 641 642 647 672 673 712 713 718"
-MAP_LIST_D3="530 593 594 596 597 605"
+MAP_LIST_A="571"
+MAP_LIST_B="1"
+MAP_LIST_C="530 44 550 552 553 554 555 556 557 558"
+MAP_LIST_D="0"
+MAP_LIST_E="599 600 608 616 649 723 573 37 534 564 580 349 369 389 409 429 449 450 451 565 576 582 584 586 587 588 589 13 25 34 35 42 43"
+MAP_LIST_F="47 632 532 559 562 617 618 624 658 289 469 489 529 601 615 650 724 329 668 209 129 533 604 33 309 531 568 572 540 542 544 545 546 547 548 578 48 70 90 109 229 230 249 590 591 592 593 594 596 598"
+MAP_LIST_G="30 36 189 560 566 595 269 509 609 602 619 574 575"
+MAP_LIST_H="607 543 603 628 631 585 169"
 
 badParam()
 {
@@ -47,8 +48,9 @@ badParam()
   echo "You can (re)extract mmaps with this helper script,"
   echo "or recreate only the tiles from the offmash file"
   echo
-  echo "Call with number of processes (1 - 4) to create mmaps"
+  echo "Call with number of processes (1,2,4,8) to create mmaps"
   echo "Call with 'offmesh' to reextract the tiles from offmash file"
+  echo "Example: ./MoveMapGen.sh 8"
   echo
   echo "For further fine-tuning edit this helper script"
   echo
@@ -115,25 +117,30 @@ fi
 case "$1" in
   "1" )
     createHeader $1
-    createMMaps $MAP_LIST_A $MAP_LIST_B $MAP_LIST_C $MAP_LIST_D &
+    createMMaps $MAP_LIST_A $MAP_LIST_B $MAP_LIST_C $MAP_LIST_D $MAP_LIST_E $MAP_LIST_F $MAP_LIST_G $MAP_LIST_H &
     ;;
   "2" )
     createHeader $1
-    createMMaps $MAP_LIST_A $MAP_LIST_D &
-    createMMaps $MAP_LIST_B $MAP_LIST_C &
-    ;;
-  "3" )
-    createHeader $1
-    createMMaps $MAP_LIST_A $MAP_LIST_D1&
-    createMMaps $MAP_LIST_B $MAP_LIST_D2&
-    createMMaps $MAP_LIST_C $MAP_LIST_D3&
+    createMMaps $MAP_LIST_A $MAP_LIST_D $MAP_LIST_F $MAP_LIST_H &
+    createMMaps $MAP_LIST_B $MAP_LIST_C $MAP_LIST_E $MAP_LIST_G &
     ;;
   "4" )
     createHeader $1
+    createMMaps $MAP_LIST_A $MAP_LIST_E &
+    createMMaps $MAP_LIST_B $MAP_LIST_F &
+    createMMaps $MAP_LIST_C $MAP_LIST_G &
+    createMMaps $MAP_LIST_D $MAP_LIST_H &
+    ;;
+  "8" )
+    createHeader $1
     createMMaps $MAP_LIST_A &
+    createMMaps $MAP_LIST_E &
     createMMaps $MAP_LIST_B &
+    createMMaps $MAP_LIST_F &
     createMMaps $MAP_LIST_C &
+    createMMaps $MAP_LIST_G &
     createMMaps $MAP_LIST_D &
+    createMMaps $MAP_LIST_H &
     ;;
   "offmesh" )
     echo "`date`: Recreate offmeshs from file $OFFMESH_FILE" | tee -a $LOG_FILE
