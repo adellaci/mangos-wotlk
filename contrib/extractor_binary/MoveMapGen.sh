@@ -33,14 +33,18 @@ DETAIL_LOG_FILE="MoveMapGen_detailed.log"
 ## ! Use below only for finetuning or if you know what you are doing !
 
 ## All maps
-MAP_LIST_A="571"
-MAP_LIST_B="1"
-MAP_LIST_C="530 44 550 552 553 554 555 556 557 558"
-MAP_LIST_D="0"
-MAP_LIST_E="599 600 608 616 649 723 573 37 534 564 580 349 369 389 409 429 449 450 451 565 576 582 584 586 587 588 589 13 25 34 35 42 43"
-MAP_LIST_F="47 632 532 559 562 617 618 624 658 289 469 489 529 601 615 650 724 329 668 209 129 533 604 33 309 531 568 572 540 542 544 545 546 547 548 578 48 70 90 109 229 230 249 590 591 592 593 594 596 598"
-MAP_LIST_G="30 36 189 560 566 595 269 509 609 602 619 574 575"
-MAP_LIST_H="607 543 603 628 631 585 169"
+LIST_A="571"
+LIST_B="1"
+LIST_C="530"
+LIST_D="0"
+LIST_E="169 531 409 545 604 542 44 109 389 565 450 617 616 592 582 489"
+LIST_F="603 631 574 560 269 602 309 585 566 469 25 615 369 230 649 576 547 555 48 35 129 558 557 249 449 588 586 608"
+LIST_G="607 533 509 543 30 600 532 650 553 43 554 34"
+LIST_H="619 628 723 609 564 37 534 595 209 568 529 573 658 47 349 229 546 189 552 540 598 556 601 544 593 42 451 587"
+LIST_I="591 548 33"
+LIST_J="594 572 562 329"
+LIST_K="596 580 429 36 13"
+LIST_L="289 724 559 599 668 90 550 70 632 624 618 590 584 589 578 575"
 
 badParam()
 {
@@ -117,30 +121,34 @@ fi
 case "$1" in
   "1" )
     createHeader $1
-    createMMaps $MAP_LIST_A $MAP_LIST_B $MAP_LIST_C $MAP_LIST_D $MAP_LIST_E $MAP_LIST_F $MAP_LIST_G $MAP_LIST_H &
+    createMMaps $LIST_A $LIST_B $LIST_C $LIST_D $LIST_E $LIST_F $LIST_G $LIST_H $LIST_I $LIST_J $LIST_K $LIST_L &
     ;;
   "2" )
     createHeader $1
-    createMMaps $MAP_LIST_A $MAP_LIST_D $MAP_LIST_F $MAP_LIST_H &
-    createMMaps $MAP_LIST_B $MAP_LIST_C $MAP_LIST_E $MAP_LIST_G &
+    createMMaps $LIST_A $LIST_C $LIST_E $LIST_G $LIST_J $LIST_L &
+    createMMaps $LIST_B $LIST_D $LIST_F $LIST_H $LIST_I $LIST_K &
     ;;
   "4" )
     createHeader $1
-    createMMaps $MAP_LIST_A $MAP_LIST_E &
-    createMMaps $MAP_LIST_B $MAP_LIST_F &
-    createMMaps $MAP_LIST_C $MAP_LIST_G &
-    createMMaps $MAP_LIST_D $MAP_LIST_H &
+    createMMaps $LIST_A $LIST_E &
+    createMMaps $LIST_B $LIST_F $LIST_I &
+    createMMaps $LIST_C $LIST_G $LIST_J $LIST_L &
+    createMMaps $LIST_D $LIST_H $LIST_K &
     ;;
   "8" )
     createHeader $1
-    createMMaps $MAP_LIST_A &
-    createMMaps $MAP_LIST_E &
-    createMMaps $MAP_LIST_B &
-    createMMaps $MAP_LIST_F &
-    createMMaps $MAP_LIST_C &
-    createMMaps $MAP_LIST_G &
-    createMMaps $MAP_LIST_D &
-    createMMaps $MAP_LIST_H &
+    createMMaps $LIST_A &
+    createMMaps $LIST_E &
+    createMMaps $LIST_B &
+    createMMaps $LIST_F &
+    createMMaps $LIST_C &
+    createMMaps $LIST_G &
+    createMMaps $LIST_D &
+    createMMaps $LIST_H &
+    createMMaps $LIST_I &
+    createMMaps $LIST_J &
+    createMMaps $LIST_K &
+    createMMaps $LIST_L &
     ;;
   "offmesh" )
     echo "`date`: Recreate offmeshs from file $OFFMESH_FILE" | tee -a $LOG_FILE
