@@ -138,17 +138,13 @@ case "$1" in
   "8" )
     createHeader $1
     createMMaps $LIST_A &
-    createMMaps $LIST_E &
     createMMaps $LIST_B &
-    createMMaps $LIST_F &
     createMMaps $LIST_C &
-    createMMaps $LIST_G &
     createMMaps $LIST_D &
+    createMMaps $LIST_E $LIST_I $LIST_J $LIST_K &
+    createMMaps $LIST_F &
+    createMMaps $LIST_G $LIST_L &
     createMMaps $LIST_H &
-    createMMaps $LIST_I &
-    createMMaps $LIST_J &
-    createMMaps $LIST_K &
-    createMMaps $LIST_L &
     ;;
   "offmesh" )
     echo "`date`: Recreate offmeshs from file $OFFMESH_FILE" | tee -a $LOG_FILE
